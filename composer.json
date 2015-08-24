@@ -1,0 +1,17 @@
+{
+    "name": "melindrea/slim-test",
+    "require": {
+        "vlucas/phpdotenv": "^2.0",
+        "illuminate/database": "^5.1",
+        "illuminate/config": "^5.1",
+        "nesbot/carbon": "^1.20",
+        "anahkiasen/underscore-php": "^2.0",
+        "slim/slim": "~3.0@dev"
+    },
+    "authors": [
+        {
+            "name": "Marie Hogebrandt",
+            "email": "iam@mariehogebrandt.se"
+        }
+    ]
+}
