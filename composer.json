@@ -6,7 +6,7 @@
         "illuminate/config": "^5.1",
         "nesbot/carbon": "^1.20",
         "anahkiasen/underscore-php": "^2.0",
-        "slim/slim": "~3.0@dev",
+        "slim/slim": "~3.0.0-RC1",
         "monolog/monolog": "^1.16",
         "hassankhan/config": "^0.8.2",
         "symfony/yaml": "^2.7",
@@ -17,5 +17,15 @@
             "name": "Marie Hogebrandt",
             "email": "iam@mariehogebrandt.se"
         }
-    ]
+    ],
+    "scripts": {
+        "lint": "phpcs --standard=LEStandard -s",
+        "fix": "phpcbf app/src --standard=LEStandard"
+    },
+    "autoload": {
+        "psr-4": {"Lees\\": "app/src/"}
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^2.3"
+    }
 }

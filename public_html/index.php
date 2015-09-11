@@ -32,3 +32,18 @@ define('APP_PATH', realpath(ROOT . $config->get('dirs.app')) . DIRECTORY_SEPARAT
 define('MODULES_PATH', realpath(ROOT . $config->get('dirs.modules')) . DIRECTORY_SEPARATOR);
 
 // Start actual stuff here, like routes and crap
+
+$app->get('/', function ($request, $response, $args) use ($container) {
+    $template = 'Hello, {{name}},<br /> Today is {{dayoftheweek}}, and the time is {{currentime}}';
+    //set the template values
+    $values = [
+        'name'=> 'Marie',
+        'dayoftheweek'=>date('l'),
+        'currentime'=>date('H:i:s')
+    ];
+
+    $response->write($container['View']->render($template, $values));
+    return $response;
+});
+
+$app->run();
