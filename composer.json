@@ -10,7 +10,8 @@
         "monolog/monolog": "^1.16",
         "hassankhan/config": "^0.8.2",
         "symfony/yaml": "^2.7",
-        "mustache/mustache": "^2.8"
+        "mustache/mustache": "^2.8",
+        "slim/csrf": "^0.4.0"
     },
     "authors": [
         {

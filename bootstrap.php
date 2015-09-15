@@ -44,28 +44,15 @@ $config = new \Noodlehaus\Config($configPaths(ROOT));
 // Initiate app
 $app = new \Slim\App();
 
-Mustache_Autoloader::register();
-
-// $template = 'Hello, {{name}},<br /> Today is {{dayoftheweek}}, and the time is {{currentime}}';
-// //set the template values
-// $values = array(
-//     'name'=>'John',
-//     'dayoftheweek'=>date('l'),
-//     'currentime'=>date('H:i:s')
-// );
-
-// //start the mustache engine
-// $m = new Mustache_Engine;
-// //render the template with the set values
-// echo $m->render($template, $values);
-
 // Database - https://github.com/illuminate/database
 // Various handlers and stuff
 $container = $app->getContainer();
-$m = new Mustache_Engine;
 
-$container['View'] = function ($c) {
-    return new Mustache_Engine;
+$container['view'] = function ($c) {
+    return new Mustache_Engine([
+        'loader' => new Mustache_Loader_FilesystemLoader(ROOT . 'app/views'),
+        'partials_loader' => new Mustache_Loader_FilesystemLoader(ROOT . 'app/views/partials'),
+    ]);
 };
 
 // Logger - http://akrabat.com/logging-errors-in-slim-3/
