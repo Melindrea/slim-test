@@ -12,8 +12,7 @@ class MarkdownResponder extends MustacheResponder
         \Psr\Http\Message\ResponseInterface $response,
         $pageName = null
     ) {
-
-        $content = 'Fake 404. Please fix this';
+        $content = sprintf('Fake 404. Please fix this. Page: %s', $request->getRequestTarget());
 
         $realPageName = realpath(
             sprintf(
