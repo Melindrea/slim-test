@@ -3,19 +3,21 @@
 namespace Lees\Responder;
 
 use Lees\Traits\Mustache;
+use Lees\View;
 
-class MustacheResponder implements \Lees\Interfaces\Respondable
+class MustacheResponder extends Base
 {
     use Mustache;
-    protected $response;
 
-    public function __construct(\Slim\App $app, \Lees\Interfaces\Viewable $class)
-    {
-        $this->response = $this->renderMustache($app, $class);
-    }
+    public function __construct(
+        \Slim\App $app,
+        \Psr\Http\Message\ServerRequestInterface $request,
+        \Psr\Http\Message\ResponseInterface $response,
+        $content
+    ) {
+        parent::__construct($app, $request, $response);
 
-    public function response()
-    {
-        return $this->response;
+        $layout = new View\Layouts\Master($content);
+        $this->responseString = $this->renderMustache($app, $layout);
     }
 }

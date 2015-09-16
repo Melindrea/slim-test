@@ -39,6 +39,13 @@ $configPaths = function ($basePath) {
 // Load config
 $config = new \Noodlehaus\Config($configPaths(ROOT));
 
+// Define the absolute paths for configured directories
+define('APP_PATH', realpath(ROOT . $config->get('dirs.app')) . DIRECTORY_SEPARATOR);
+define('MODULES_PATH', realpath(ROOT . $config->get('dirs.modules')) . DIRECTORY_SEPARATOR);
+define('CONTENT_PATH', realpath(ROOT . $config->get('dirs.content')) . DIRECTORY_SEPARATOR);
+define('VIEW_PATH', realpath(ROOT . $config->get('dirs.view')) . DIRECTORY_SEPARATOR);
+define('CACHE_PATH', realpath(ROOT . $config->get('dirs.cache')) . DIRECTORY_SEPARATOR);
+
 // Maybe set an environment to be used elsewhere too?
 
 // Initiate app
@@ -50,16 +57,22 @@ $container = $app->getContainer();
 
 $container['view'] = function ($c) {
     return new Mustache_Engine([
-        'loader' => new Mustache_Loader_FilesystemLoader(ROOT . 'app/views'),
-        'partials_loader' => new Mustache_Loader_FilesystemLoader(ROOT . 'app/views/partials'),
+        'loader' => new Mustache_Loader_FilesystemLoader(VIEW_PATH),
+        'partials_loader' => new Mustache_Loader_FilesystemLoader(VIEW_PATH . 'partials'),
+        'cache' => CACHE_PATH . 'mustache',
+        'escape' => function ($value) {
+            $config = HTMLPurifier_Config::createDefault();
+            $purifier = new HTMLPurifier($config);
+            return $purifier->purify($value);
+        },
     ]);
 };
 
 // Logger - http://akrabat.com/logging-errors-in-slim-3/
 // https://github.com/akrabat/slim3-skeleton
-$container['Logger'] = function($c) {
+$container['Logger'] = function ($c) {
     $logger = new Monolog\Logger('logger');
-    $filename = _DIR__ . '/../log/error.log'; // Should be from config
+    $filename = APP_PATH . '/log/error.log'; // Should be from config
     $stream = new Monolog\Handler\StreamHandler(
         $filename,
         Monolog\Logger::DEBUG

@@ -9,7 +9,8 @@ class Router
         $name,
         \Psr\Http\Message\ServerRequestInterface $request,
         \Psr\Http\Message\ResponseInterface $response,
-        array $args) {
+        array $args
+    ) {
         $actionName = sprintf('Lees\Action\%sAction', ucfirst($name));
         $action = new $actionName($app, $request, $response, $args);
         return $action->response();

@@ -9,6 +9,7 @@ define('ROOT', realpath(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR);
  *
  */
 define('EXT', '.php');
+define('VIEW_EXT', '.md');
 
 /**
  * Set the PHP error reporting level. If you set this in php.ini, you remove this.
@@ -27,12 +28,10 @@ error_reporting(E_ALL | E_STRICT);
 
 require(ROOT . 'bootstrap' . EXT);
 
-// Define the absolute paths for configured directories
-define('APP_PATH', realpath(ROOT . $config->get('dirs.app')) . DIRECTORY_SEPARATOR);
-define('MODULES_PATH', realpath(ROOT . $config->get('dirs.modules')) . DIRECTORY_SEPARATOR);
 
 // Start actual stuff here
 
 require(APP_PATH . 'routes' . EXT);
+
 
 $app->run();
